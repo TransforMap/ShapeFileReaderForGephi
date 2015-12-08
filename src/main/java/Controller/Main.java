@@ -16,18 +16,33 @@ import org.geotools.data.store.ContentFeatureSource;
  */
 public class Main {
 
-    static String filepath = "H:\\data\\datasets\\shape files\\Australia\\1259030001_ste11aaust_shape\\";
-    static String filename = "STE11aAust.shp";
+    static String sourceFilePath;
+    static String sourceFileName;
     static boolean testOneState = false;
     static double precision= 0.05;
     // the higher the number, the LESSER the precision
 
     public static void main(String[] args) throws Exception {
-        File file = new File(filepath + filename);
-        if (!file.exists() || !filename.endsWith(".shp")) {
-            throw new Exception("Invalid shapefile filepath: " + filepath);
+
+        if (args.length == 0)
+            throw new Exception("This application expects the shapefile-path as argument.");
+
+        File sourceFile = new File(args[0]);
+
+        sourceFilePath = sourceFile.getAbsolutePath();
+        sourceFilePath = sourceFilePath.substring(0, sourceFilePath.lastIndexOf(File.separator));
+
+        sourceFileName = sourceFile.getName();
+
+        if (!sourceFile.exists()) {
+            throw new Exception("The specified path doesn't exist: " + sourceFilePath);
         }
-        ShapefileDataStore dataStore = new ShapefileDataStore(file.toURL());
+
+        if (!sourceFileName.endsWith(".shp")) {
+            throw new Exception("The shapefile's extension must be '.shp'. (" + sourceFilePath + ")");
+        }
+
+        ShapefileDataStore dataStore = new ShapefileDataStore(sourceFile.toURL());
         ContentFeatureSource featureSource = dataStore.getFeatureSource();
         ContentFeatureCollection featureCollection = featureSource.getFeatures();
         
@@ -39,5 +54,4 @@ public class Main {
         dataStore.dispose();
 
     }
-
 }

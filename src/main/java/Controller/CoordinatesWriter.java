@@ -59,7 +59,7 @@ class CoordinatesWriter {
     void write(double precision) throws FileNotFoundException, IOException {
         BufferedReader br;
 
-        File wd = new File(Main.filepath);
+        File wd = new File(Main.sourceFilePath);
         Scanner sc1;
         String pattern = ", ";
         Pattern p = Pattern.compile(pattern);
@@ -136,7 +136,7 @@ class CoordinatesWriter {
             }
             sb.append("\n");
         }
-        BufferedWriter bw = new BufferedWriter(new FileWriter(Main.filepath + "Australian states.csv"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(Main.sourceFilePath + Main.sourceFileName + ".csv"));
         bw.write(sb.toString());
         bw.close();
         System.out.println("node count: " + nodeCount);

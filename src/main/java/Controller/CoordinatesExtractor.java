@@ -9,7 +9,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
+
 import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.data.store.ContentFeatureCollection;
 import org.opengis.feature.Property;
@@ -80,7 +80,7 @@ class CoordinatesExtractor {
                     int pLength = p.toString().length();
                     String coordinates = p.toString().substring(p.toString().indexOf("((("), pLength);
                     coordinates = coordinates.substring(0, coordinates.indexOf(")))"));
-                    bw = new BufferedWriter(new FileWriter(Main.filepath + (counterStates) + ".txt"));
+                    bw = new BufferedWriter(new FileWriter(Main.sourceFilePath + (counterStates) + ".txt"));
                     bw.write(coordinates);
                     bw.close();
 
